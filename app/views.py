@@ -5,18 +5,25 @@ import pandas as pd
 
 
 def create_db(file_path):
-    df = pd.read_csv(file_path) 
-    # print("Columns in CSV:", df.columns.tolist())  
+    df = pd.read_csv(file_path)
 
     for _, row in df.iterrows():
         Person.objects.create(
-            enrollee_id=row['enrollee_id'],
-            last_name=row['Last Name'],
-            email=row['Email'],
-            gender=row['Gender'],
-            ip_address=row['IP Address'],
-            address=row['Address']
+            enrollee_id=row.get('enrollee_id', None),  # Using .get() to allow for missing keys
+            city=row.get('City', None),
+            city_development_index=row.get('City Development Index', None),
+            gender=row.get('Gender', None),
+            enrolled_university=row.get('Enrolled University', None),
+            education_level=row.get('Education Level', None),
+            major_discipline=row.get('Major Discipline', None),
+            experience=row.get('Experience', None),
+            company_size=row.get('Company Size', None),
+            company_type=row.get('Company Type', None),
+            last_new_job=row.get('Last New Job', None),
+            training_hours=row.get('Training Hours', None),
+            target=row.get('Target', None)
         )
+
 
 
 #  here we are having View to handle the file upload
